@@ -9,7 +9,6 @@
 ####          Yelb connects to a backend database for persistency            ####
 #################################################################################
 
-require 'redis'
 require 'socket'
 require 'sinatra'
 require 'pg'
@@ -20,19 +19,16 @@ disable :protection
 
 # the system variable RACK_ENV controls which environment you are enabling 
 configure :production do
-  set :redishost, "redis-server"
   set :port, 4567
   set :yelbdbhost => "yelb-db"
   set :yelbdbport => 5432
 end
 configure :test do
-  set :redishost, "redis-server"
   set :port, 4567
   set :yelbdbhost => "yelb-db"
   set :yelbdbport => 5432
 end
 configure :development do
-  set :redishost, "localhost"
   set :port, 4567
   set :yelbdbhost => "localhost"
   set :yelbdbport => 5432
@@ -66,20 +62,7 @@ def restaurantsdbupdate(restaurant)
                       :password => 'postgres_password'
     con.prepare('statement1', 'UPDATE restaurants SET count = count +1 WHERE name = $1')
     res = con.exec_prepared('statement1', [ restaurant ])
-end 
-
-get '/api/pageviews' do
-
-    headers 'Access-Control-Allow-Origin' => '*'
-    headers 'Access-Control-Allow-Headers' => 'Authorization,Accepts,Content-Type,X-CSRF-Token,X-Requested-With'
-    headers 'Access-Control-Allow-Methods' => 'GET,POST,PUT,DELETE,OPTIONS'
-
-	content_type 'application/json'
-    redis = Redis.new
-    redis = Redis.new(:host => settings.redishost, :port => 6379)
-    redis.incr("pageviews")
-    @pageviews = redis.get("pageviews")
-end #get /api/pageviews
+end
 
 get '/api/hostname' do
 
@@ -98,12 +81,8 @@ get '/api/getstats' do
     headers 'Access-Control-Allow-Methods' => 'GET,POST,PUT,DELETE,OPTIONS'
 
 	content_type 'application/json'
-    redis = Redis.new
-    redis = Redis.new(:host => settings.redishost, :port => 6379)
-    redis.incr("pageviews")
     @hostname = Socket.gethostname
-    @pageviews = redis.get("pageviews")
-    @stats = '{"hostname": "' + @hostname + '"' + ", " + '"pageviews":' + @pageviews + "}"
+    @stats = '{"hostname": "' + @hostname + '"' +"}"
 end #get /api/getstats
 
 

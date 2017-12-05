@@ -25,7 +25,6 @@ colorScheme = {
 votes: any[] = [];
 stats: any;
 hostname: any;
-pageviews: any;
 gradient: boolean;
 view: any[] = [700, 200];
 ngOnInit(){this.getvotes(); this.getstats()}
@@ -35,7 +34,7 @@ getvotes(): void {
     console.log("connecting to app server " + url);
     this.http.get(url)
                 .map((res: Response) => res.json())
-                .subscribe(res => {console.log(res); this.votes = res})                
+                .subscribe(res => {console.log(res); this.votes = res})
     }
 
 getstats(): void {
@@ -43,7 +42,7 @@ getstats(): void {
     console.log("connecting to app server " + url);
     this.http.get(url)
                 .map((res: Response) => res.json())
-                .subscribe(res => {console.log(res, res.hostname, res.pageviews); this.stats = res})                
+                .subscribe(res => {console.log(res, res.hostname); this.stats = res})
     }
 
 vote(restaurant: string): void {
@@ -51,7 +50,7 @@ vote(restaurant: string): void {
     console.log("connecting to app server " + url);
     this.http.get(url)
                 .map((res: Response) => res.json())
-                .subscribe(res => {console.log(res)});    
+                .subscribe(res => {console.log(res)});
     this.getvotes()
     }
 }
