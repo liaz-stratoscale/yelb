@@ -7,6 +7,22 @@
   }
 }
 
+.strato-icon {
+    background-image: url("../images/strato_logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 75px;
+    height: 75px;
+    background-size: cover;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.strato-icon span {
+    margin-right: 15px;
+    float: left;
+}
+
 // app.css
 
 .header {
