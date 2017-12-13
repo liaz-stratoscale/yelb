@@ -47,8 +47,8 @@ def restaurantsdbread(restaurant)
     con = PG.connect  :host => settings.yelbdbhost,
                       :port => settings.yelbdbport,
                       :dbname => 'yelbdatabase',
-                      :user => 'postgres',
-                      :password => 'postgres_password'
+                      :user => 'yelbdbuser',
+                      :password => 'yelbdbuser'
     con.prepare('statement1', 'SELECT count FROM restaurants WHERE name =  $1')
     res = con.exec_prepared('statement1', [ restaurant ])
     return res.getvalue(0,0)
@@ -58,8 +58,8 @@ def restaurantsdbupdate(restaurant)
     con = PG.connect  :host => settings.yelbdbhost,
                       :port => settings.yelbdbport,
                       :dbname => 'yelbdatabase',
-                      :user => 'postgres',
-                      :password => 'postgres_password'
+                      :user => 'yelbdbuser',
+                      :password => 'yelbdbuser'
     con.prepare('statement1', 'UPDATE restaurants SET count = count +1 WHERE name = $1')
     res = con.exec_prepared('statement1', [ restaurant ])
 end
