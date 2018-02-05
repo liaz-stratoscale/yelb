@@ -1,27 +1,38 @@
 #! /bin/bash -v
 
-apt-get update -y
-apt-get install -y apt-transport-https ca-certificates curl software-properties-common git postgresql-client-common postgresql-client-9.6
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-apt-key fingerprint 0EBFCD88
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-apt-get update -y
-apt-get install -y docker-ce
+cat << EOF >> /etc/resolv.conf
+nameserver 8.8.8.8
+search strato
+EOF
 
-gpasswd -a ubuntu docker
+# apt-get update -y
+# apt-get install -y apt-transport-https ca-certificates curl software-properties-common git postgresql-client-common postgresql-client-9.6
+# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+# apt-key fingerprint 0EBFCD88
+# add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+# apt-get update -y
+# apt-get install -y docker-ce
+
+# gpasswd -a ubuntu docker
 ########################################
 
-DBHOST="10.41.232.22"
+DBHOST=${db_endpoint}
+DBIP=$(dig +short ${db_endpoint})
 DBPORT=5432
 DBNAME="yelbdatabase"
 DBUSER="yelbdbuser"
 DBPASS="yelbdbuser"
 
-echo "$DBHOST:$DBPORT:$DBNAME:$DBUSER:$DBPASS" > ~/.pgpass
-chmod 600 ~/.pgpass
-echo "${DBHOST}     yelb-db" >> /etc/hosts
+if [ -z "$DBIP" ]
+then
+    DBIP=$(echo $DBHOST)
+fi
 
-#psql -v ON_ERROR_STOP=1 --username="$DBUSER" -w -d "$DBNAME" -h "$DBHOST" <<-EOSQL
+echo "$DBIP:$DBPORT:$DBNAME:$DBUSER:$DBPASS" > ~/.pgpass
+chmod 600 ~/.pgpass
+echo "$DBIP    yelb-db" >> /etc/hosts
+
+#psql -v ON_ERROR_STOP=1 --username="$DBUSER" -w -d "$DBNAME" -h "$DBIP" <<-EOSQL
 #	CREATE TABLE clouds (
 #    	name        char(30),
 #    	count       integer,
@@ -33,7 +44,7 @@ echo "${DBHOST}     yelb-db" >> /etc/hosts
 #	INSERT INTO clouds (name, count) VALUES ('Symphony', 0);
 #EOSQL
 
-psql -v ON_ERROR_STOP=1 --username="$DBUSER" -w -d "$DBNAME" -h "$DBHOST" <<-EOSQL
+psql -v ON_ERROR_STOP=1 --username="$DBUSER" -w -d "$DBNAME" -h "$DBIP" <<-EOSQL
 	CREATE TABLE restaurants (
     	name        char(30),
     	count       integer,
