@@ -1,5 +1,5 @@
 
-#### Cloud Voter App, (aka Yelb) 
+## Cloud Voter App, (aka Yelb) 
 
 Yelb is a cloud-native application written from scratch (leveraging existing frameworks and tools such as Sinatra, Angular2 and others).   
 As a cloud-native app it can be easily deployed on top of amazon, as well as a Symphony region.   
