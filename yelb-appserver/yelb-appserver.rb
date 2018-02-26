@@ -96,7 +96,7 @@ get '/api/getvotes' do
     @ihop = restaurantsdbread("ihop")
     @bucadibeppo = restaurantsdbread("bucadibeppo")
     @chipotle = restaurantsdbread("chipotle")
-    @votes = '[{"name": "outback", "value": ' + @outback + '},' + '{"name": "bucadibeppo", "value": ' + @bucadibeppo + '},' + '{"name": "ihop", "value": '  + @ihop + '}, ' + '{"name": "chipotle", "value": '  + @chipotle + '}]'
+    @votes = '[{"name": "gcp", "value": ' + @outback + '},' + '{"name": "azure", "value": ' + @bucadibeppo + '},' + '{"name": "symphony", "value": '  + @ihop + '}, ' + '{"name": "aws", "value": '  + @chipotle + '}]'
 end #get /api/getvotes 
 
 get '/api/ihop' do

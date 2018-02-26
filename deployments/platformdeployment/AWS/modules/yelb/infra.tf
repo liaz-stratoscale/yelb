@@ -8,7 +8,6 @@ resource "aws_internet_gateway" "igw"{
   vpc_id = "${aws_vpc.app_vpc.id}"
 }
 
-
 resource "aws_route_table" "external_route" {
   vpc_id = "${aws_vpc.app_vpc.id}"
 
@@ -21,13 +20,13 @@ resource "aws_route_table" "external_route" {
 resource "aws_subnet" "app_subnet1"{
   vpc_id = "${aws_vpc.app_vpc.id}"
   cidr_block = "192.168.10.0/24"
-  map_public_ip_on_launch = true
+  #map_public_ip_on_launch = true
 }
 
 resource "aws_subnet" "app_subnet2"{
   vpc_id = "${aws_vpc.app_vpc.id}"
   cidr_block = "192.168.20.0/24"
-  map_public_ip_on_launch = true
+  #map_public_ip_on_launch = true
 }
 
 resource "aws_route_table_association" "external_route_associasion1" {

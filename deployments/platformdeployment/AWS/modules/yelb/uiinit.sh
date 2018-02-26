@@ -2,11 +2,12 @@
 
 APPSERVER=${yelb_appserver}
 
-#cat << EOF >> /etc/resolv.conf
-#nameserver 8.8.8.8
-#search strato
-#EOF
+cat << EOF >> /etc/resolv.conf
+nameserver 8.8.8.8
+search strato
+EOF
 
+###### Install docker on a clean ubuntu 16 ami ########
 # apt-get update -y
 # apt-get install -y apt-transport-https ca-certificates curl software-properties-common git
 # curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -16,7 +17,7 @@ APPSERVER=${yelb_appserver}
 # apt-get install -y docker-ce
 
 # gpasswd -a ubuntu docker
-
+########################################################
 echo "$APPSERVER     yelb-app" >> /etc/hosts
 
 docker run -dt -p 80:80 -v /etc/hosts:/etc/hosts kushmarostratoscale/yelb-ui:0.1

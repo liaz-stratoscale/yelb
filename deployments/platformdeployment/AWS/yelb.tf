@@ -1,14 +1,13 @@
 module "yelb" {
   source = "./modules/yelb/"
   providers {
-    aws="aws.public"
+    aws="aws.private"
   }
-  ### Private vars
-  # db_class = "m4.large"
-  # db_version = "9.6.00"
+  ### Symphony vars
+  db_class = "m4.large"
+  db_version = "9.6.00"
   
   ### AWS vars
-  db_class = "db.m4.large"
-  db_version = "9.6.1"
-
+  #db_class = "db.m4.large"
+  #db_version = "9.6.1"
 }
