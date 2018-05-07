@@ -9,7 +9,7 @@ data "template_file" "appinit"{
 resource "aws_instance" "yelb-app" {
   ami = "${data.aws_ami.ubuntu.image_id}"
   subnet_id = "${aws_subnet.app_subnet1.id}"
-  security_groups = ["${aws_security_group.app.id}"]
+  vpc_security_group_ids = ["${aws_security_group.app.id}"]
   instance_type = "c4.large"
   key_name = "demoapp"
 

@@ -17,6 +17,9 @@ resource "aws_db_instance" "yelbdb" {
   engine_version = "${var.db_version}"
   skip_final_snapshot = true
   db_subnet_group_name = "${aws_db_subnet_group.db_subnet.name}"
+  lifecycle {
+    ignore_changes = ["engine", "auto_minor_version_upgrade", "vpc_security_group_ids"]
+  }
 }
 
 output "db_endpoint" {

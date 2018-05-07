@@ -4,7 +4,7 @@ provider "aws" {
   secret_key = "${var.symp_secret_key}"
 
   endpoints {
-    ec2 = "https://${var.symphony_ip}/api/v2/ec2"
+    ec2 = "https://${var.symphony_ip}/api/v2/aws/ec2"
     elb = "https://${var.symphony_ip}/api/v2/aws/elb"
     rds = "https://${var.symphony_ip}/api/v2/aws/rds"
   }

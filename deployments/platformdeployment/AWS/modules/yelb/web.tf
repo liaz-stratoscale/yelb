@@ -10,13 +10,13 @@ data "aws_ami" "ubuntu" {
   most_recent = true
   filter {
     name   = "name"
-    values = ["*yelb-image*"]
+    values = ["*ubuntu*"]
   }
 }
 
 resource "aws_instance" "yelb-web" {
   ami = "${data.aws_ami.ubuntu.image_id}"
-  security_groups = ["${aws_security_group.web.id}"]
+  vpc_security_group_ids = ["${aws_security_group.web.id}"]
   instance_type = "c4.large"
   subnet_id = "${aws_subnet.app_subnet1.id}"
   key_name = "demoapp"

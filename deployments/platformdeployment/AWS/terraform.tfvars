@@ -1,6 +1,6 @@
-symp_access_key = "<symphony access key>"
-symp_secret_key = "<symphony secret key>"
-symphony_ip = "<symphony ip>"
+symp_access_key = "cd413cb551cd4f3bbe7397c3b16f9a81"
+symp_secret_key = "24347ddd1c0f4155bd53766871d9a507"
+symphony_ip = "10.16.146.131"
 
 
 aws_access_key = "<aws access key>"
