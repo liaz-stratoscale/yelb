@@ -15,6 +15,7 @@ provider "aws" {
 
   # No importance for this value currently
   region = "us-east-2"
+  version = "<=1.15"
 }
 
 
