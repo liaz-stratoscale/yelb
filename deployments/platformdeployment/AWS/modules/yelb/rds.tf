@@ -6,7 +6,8 @@ resource "aws_db_subnet_group" "db_subnet" {
 }
 
 resource "aws_db_instance" "yelbdb" {
-  identifier = "yelb-db"
+  # This is needed since identifier must be unique in the deployment
+//  identifier = "yelb-db"
   instance_class = "${var.db_class}"
   vpc_security_group_ids = ["${aws_security_group.app.id}"]
   allocated_storage = 10
